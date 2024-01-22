@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advice</title>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+        #id {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 2rem;
+            color: #333;
+            border-top: 2px solid #333;
+            padding-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        #advice {
+            display: block;
+            font-size: 1.5rem;
+            font-style: italic;
+            text-align: center;
+            margin: 0 auto;
+            width: 50%;
+            color: #666;
+            padding: 1rem;
+            border: 2px solid #333;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover{
+            background-color: #414141;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Main</a></li>
+            <li><a href="/weather">Weather API</a></li>
+            <li><a href="/advice">Advice API</a></li>
+            <li><a href="/quotes">Quotes API</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Get Random Advice</h1>
+        <form action="/advice" method="post">
+            <button type="submit">Get Advice</button>
+        </form>
+        <div id="id">Id: <%= id %></div>
+        <div id="advice"><%= advice %></div>
+    </div>
+
+    <footer>
+        <p>Amirkhan Ilyassov | SE-2207</p>
+    </footer>
+
+</body>
+</html>

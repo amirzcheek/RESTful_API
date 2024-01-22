@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map for <%= city %></title>
+    <link rel="stylesheet" href="/public/css/map.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #009688;
+        }
+        h2 {
+            color: #607d8b;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        label {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        button:hover {
+            background-color: #414141;
+        }
+
+
+        #map {
+            height: 400px;
+            padding-bottom: 80px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>    
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Main</a></li>
+            <li><a href="/weather">Weather API</a></li>
+            <li><a href="/advice">Advice API</a></li>
+            <li><a href="/quotes">Quotes API</a></li>
+        </ul>
+    </nav>
+
+    <form id="mapForm" action="/weather" method="post">
+        <label for="cityMap"><b>Enter City:</b></label>
+        <input type="text" id="cityMap" name="city" placeholder="E.g., Astana" required>
+        <button type="submit">Get</button>
+    </form>
+
+    <h1>Weather for <%= city %></h1>
+    <h2>Temperature: <%= temperature %>°C</h2>
+    <h2>feels like -> <%= feelsLikeTemp %></h2> 
+    <h2>The weather is currently <%= description %></h2>
+    <img src="<%= imageURL %>" alt="Weather Icon">
+    <br>Humidity is <%=humidity%>
+    <br>Pressure is <%=pressure%>
+    <br>Wind speed is <%=windSpeed%>
+    <br>Country code is <%=countryCode%></h2>
+    <h1>Map for <%= city %></h1>
+    <h2>Coordinates:</h2>
+    <ul>
+        <li>Latitude: <%= lat %></li>
+        <li>Longitude: <%= lon %></li>
+    </ul>
+
+    <div id="map"></div>
+
+    <footer>
+        <p>Amirkhan Ilyassov | SE-2207</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([<%= lat %>, <%= lon %>], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        L.marker([<%= lat %>, <%= lon %>]).addTo(map)
+            .bindPopup('<b><%= city %></b><br>Temperature: <%= temperature %>°C<br><%= description %><br><img src="<%= imageURL %>" width="50" height="50">')
+            .openPopup();
+    </script>
+</body>
+</html>
