@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quotes</title>
+    <title>Main Page</title>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/quotes.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+        }
+
+        .main-content {
+            text-align: center;
         }
 
         nav {
@@ -39,62 +42,6 @@
 
         nav ul li a:hover {
             color: #ccc;
-        }
-        .quotes-container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        form {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        button {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 10px;
-            transition: background-color 0.3s;
-            flex: 1;
-            margin: 0 5px;
-            height: 60px;
-            width: 200px;
-        }
-
-        button:hover {
-            background-color: #414141;
-        }
-        .quote {
-            margin-top: 30px;
-        }
-
-        .author {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .quote-text {
-            font-size: 16px;
-            color: #666;
-            margin-top: 10px;
         }
 
         footer {
@@ -137,23 +84,34 @@
     </style>
 </head>
 <body>
-    <%- include('navbar') %>
+    <nav>
+        <ul>
+            <li><a href="/">Main</a></li>
+            <li><a href="/weather">Weather API</a></li>
+            <li><a href="/advice">Advice API</a></li>
+            <li><a href="/quotes">Quotes API</a></li>
+            <% if (authenticated) { %>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Profile</a>
+                    <div class="dropdown-content">
+                        <% if (typeof isAdminUser !== 'undefined' && isAdminUser) { %>
+                            <a href="/admin">Admin Page</a>
+                        <% } %>
+                        <a href="/profile">My Profile</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </li>
+            <% } else { %>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            <% } %>
+        </ul>
+    </nav>
 
-    <div class="quotes-container">
-        <h1>Quotes</h1>
-        
-        <form action="/quotes" method="post">
-            <button type="submit" name="quoteType" value="dayQuote">Get Quote of the Day</button>
-            <button type="submit" name="quoteType" value="randQuote">Get Random Quote</button>
-        </form>
-
-        <div class="quote">
-            <p class="author"><%= author %></p>
-            <blockquote class="quote-text"><%= value %></blockquote>
-        </div>
+    <div class="main-content">
+        <h1>Main Page</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quam ut a quas voluptatem repellat, facilis cumque earum eum! Placeat soluta eos praesentium? Consequuntur iste nulla doloremque, maiores dignissimos ad.</p>
     </div>
-
-
 
     <%- include('footer') %>
     <script>

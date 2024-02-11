@@ -3,28 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map for <%= city %></title>
-    <link rel="stylesheet" href="/public/css/map.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <title>Advice</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/advice.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-        }
-        h1 {
-            color: #009688;
-        }
-        h2 {
-            color: #607d8b;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 8px;
         }
         nav {
             background-color: #333;
@@ -52,46 +39,61 @@
         nav ul li a:hover {
             color: #ccc;
         }
-        form {
+        #id {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 2rem;
+            color: #333;
+            border-top: 2px solid #333;
+            padding-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        #advice {
+            display: block;
+            font-size: 1.5rem;
+            font-style: italic;
+            text-align: center;
+            margin: 0 auto;
+            width: 50%;
+            color: #666;
+            padding: 1rem;
+            border: 2px solid #333;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
             background-color: #fff;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
-        label {
-            font-size: 1.2em;
-            display: block;
-            margin-bottom: 10px;
+        form {
+            display: flex;
+            flex-direction: column;
         }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-            font-size: 1em;
-        }
 
         button {
             background-color: #333;
             color: #fff;
-            padding: 10px 20px;
+            padding: 10px;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 1em;
+            height: 60px;
+            width: 200px;
         }
-
-        button:hover {
+        button:hover{
             background-color: #414141;
-        }
-
-
-        #map {
-            height: 400px;
-            padding-bottom: 80px;
         }
 
         footer {
@@ -99,6 +101,7 @@
             color: #fff;
             text-align: center;
             padding: 10px 0;
+            position: fixed;
             bottom: 0;
             width: 100%;
         }
@@ -130,48 +133,19 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
-    </style>    
+    </style>
 </head>
 <body>
     <%- include('navbar') %>
 
-    <form id="mapForm" action="/weather" method="post">
-        <label for="cityMap"><b>Enter City:</b></label>
-        <input type="text" id="cityMap" name="city" placeholder="E.g., Astana" required>
-        <button type="submit">Get</button>
-    </form>
-    
-    <h1>Weather for <%= city %></h1>
-    <h2>Temperature: <%= temperature %>°C</h2>
-    <h2>feels like -> <%= feelsLikeTemp %></h2> 
-    <h2>The weather is currently <%= description %></h2>
-    <img src="<%= imageURL %>" alt="Weather Icon">
-    <br>Humidity is <%=humidity%>
-    <br>Pressure is <%=pressure%>
-    <br>Wind speed is <%=windSpeed%>
-    <br>Country code is <%=countryCode%></h2>
-    <h1>Map for <%= city %></h1>
-    <h2>Coordinates:</h2>
-    <ul>
-        <li>Latitude: <%= lat %></li>
-        <li>Longitude: <%= lon %></li>
-    </ul>
-
-    <div id="map"></div>
+    <div class="container">
+        <h1>Get Random Advice</h1>
+        <form action="/advice" method="post">
+            <button type="submit">Get Advice</button>
+        </form>
+    </div>
 
     <%- include('footer') %>
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('map').setView([<%= lat %>, <%= lon %>], 10);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-
-        L.marker([<%= lat %>, <%= lon %>]).addTo(map)
-            .bindPopup('<b><%= city %></b><br>Temperature: <%= temperature %>°C<br><%= description %><br><img src="<%= imageURL %>" width="50" height="50">')
-            .openPopup();
-    </script>
     <script>
         window.onclick = function(event) {
             if (!event.target.matches('.dropbtn')) {

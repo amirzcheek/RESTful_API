@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Map for <%= city %></title>
-    <link rel="stylesheet" href="/public/css/map.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <title>Weather</title>
+    <link rel="stylesheet" href="css/weatherAPI.css">
+    <script src="js/main.js" defer></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,19 +13,7 @@
             margin: 0;
             padding: 0;
         }
-        h1 {
-            color: #009688;
-        }
-        h2 {
-            color: #607d8b;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 8px;
-        }
+
         nav {
             background-color: #333;
             padding: 10px 0;
@@ -52,6 +40,7 @@
         nav ul li a:hover {
             color: #ccc;
         }
+
         form {
             background-color: #fff;
             padding: 20px;
@@ -88,17 +77,12 @@
             background-color: #414141;
         }
 
-
-        #map {
-            height: 400px;
-            padding-bottom: 80px;
-        }
-
         footer {
             background-color: #333;
             color: #fff;
             text-align: center;
             padding: 10px 0;
+            position: fixed;
             bottom: 0;
             width: 100%;
         }
@@ -130,47 +114,41 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
-    </style>    
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+            color: #333;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <%- include('navbar') %>
 
     <form id="mapForm" action="/weather" method="post">
+        <% if (message) { %>
+            <div class="message"><%= message %></div>
+        <% } %>
         <label for="cityMap"><b>Enter City:</b></label>
         <input type="text" id="cityMap" name="city" placeholder="E.g., Astana" required>
         <button type="submit">Get</button>
     </form>
-    
-    <h1>Weather for <%= city %></h1>
-    <h2>Temperature: <%= temperature %>°C</h2>
-    <h2>feels like -> <%= feelsLikeTemp %></h2> 
-    <h2>The weather is currently <%= description %></h2>
-    <img src="<%= imageURL %>" alt="Weather Icon">
-    <br>Humidity is <%=humidity%>
-    <br>Pressure is <%=pressure%>
-    <br>Wind speed is <%=windSpeed%>
-    <br>Country code is <%=countryCode%></h2>
-    <h1>Map for <%= city %></h1>
-    <h2>Coordinates:</h2>
-    <ul>
-        <li>Latitude: <%= lat %></li>
-        <li>Longitude: <%= lon %></li>
-    </ul>
-
-    <div id="map"></div>
-
     <%- include('footer') %>
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
     <script>
-        var map = L.map('map').setView([<%= lat %>, <%= lon %>], 10);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-
-        L.marker([<%= lat %>, <%= lon %>]).addTo(map)
-            .bindPopup('<b><%= city %></b><br>Temperature: <%= temperature %>°C<br><%= description %><br><img src="<%= imageURL %>" width="50" height="50">')
-            .openPopup();
+        $(document).ready(function () {
+            $('#weatherForm').submit(function (event) {
+                event.preventDefault();
+    
+                const city = $('#city').val();
+    
+                $.post('/weather', { city: city }, function (data) {
+                    $('#weatherDetails').html(data).show();
+                });
+            });
+        });
     </script>
     <script>
         window.onclick = function(event) {
