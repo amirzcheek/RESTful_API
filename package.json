@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "First write \"npm init\" in terminal to download all dependecies",
   "main": "index.js",
+  "engines":{
+    "node": "16.x"
+  },
   "scripts": {
     "start": "node src/app.js"
   },
