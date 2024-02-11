@@ -1,5 +1,7 @@
 # ASS3-webback
-
+On your PC:
+If you want to start this project on your computer, download it. Write to the terminal "npm install" it will install all dependencies you need to launch the project.
+Then write to the terminal "npm start"
 and open your browser with 'http://localhost:3000/'
 
 Additional appies:
@@ -13,8 +15,16 @@ Additional appies:
 "http://localhost:3000/quotes" -> Get quote of the day button - outputs the quote of the day on each request
                                 Get random quote button - outputs a random quote on each request
 
-Unauthorized users can access -> 
-authorized users can access ->
+On the server
+
+
+
+
+Overall info of the project:
+
+you can create or login to existing user, to logout navigate to profile in navbar and press "Logout"
+Unauthorized users can access -> Main, Login and Register pages
+authorized users can access -> Main, Weather, Advice, Quote APIs, Profile
 
 admin user:
 username: amirkhan
