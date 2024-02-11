@@ -29,24 +29,23 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
-app.use(isAdminUser)
-app.get("/", (req, res) => {
+app.get("/", isAdminUser, (req, res) => {
   res.render('main', { authenticated: req.cookies.userAuthenticated ? true : false });
 });
 
-app.get("/weather", isAuthenticated, (req, res) => {
+app.get("/weather", isAdminUser, isAuthenticated, (req, res) => {
   res.render('weatherAPI', {message: ''});
 });
 
-app.get("/advice", isAuthenticated, (req, res) => {
+app.get("/advice", isAdminUser, isAuthenticated, (req, res) => {
   res.render('advice');
 })
 
-app.get("/quotes", isAuthenticated, (req, res) => {
+app.get("/quotes", isAdminUser, isAuthenticated, (req, res) => {
   res.render('quotes');
 })
 
-app.post("/weather", isAuthenticated, (req, res) => {
+app.post("/weather", isAdminUser, isAuthenticated, (req, res) => {
   const city = req.body.city;
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=dc959d51d4a8608805987ebdb97b95f6&units=metric`;
 
@@ -101,7 +100,7 @@ app.post("/weather", isAuthenticated, (req, res) => {
 });
 
 
-app.post("/advice", isAuthenticated, (req, res) => {
+app.post("/advice", isAdminUser, isAuthenticated, (req, res) => {
   const url = `https://api.adviceslip.com/advice`
 
   https.get(url, (response) => {
@@ -133,7 +132,7 @@ app.post("/advice", isAuthenticated, (req, res) => {
   })
 })
 
-app.post("/quotes", isAuthenticated, (req, res) => {
+app.post("/quotes", isAdminUser, isAuthenticated, (req, res) => {
   const quote = req.body.quoteType;
   const urlDay = `https://zenquotes.io/api/today`;
   const urlRand = `https://zenquotes.io/api/random`;
@@ -265,14 +264,14 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
-app.get("/profile", isAuthenticated, (req, res) => {
+app.get("/profile", isAdminUser, isAuthenticated, (req, res) => {
   const jwtToken = req.cookies.jwt;
   const decoded = jwt.verify(jwtToken, secretKey);
   const username = decoded.username;
   res.render('profile', {username});
 });
 
-app.get("/weather/history", isAuthenticated, async (req, res) => {
+app.get("/weather/history", isAdminUser, isAuthenticated, async (req, res) => {
   try {
     const jwtToken = req.cookies.jwt;
     const decoded = jwt.verify(jwtToken, secretKey);
@@ -287,7 +286,7 @@ app.get("/weather/history", isAuthenticated, async (req, res) => {
   }
 });
 
-app.get("/advice/history", isAuthenticated, async (req, res) => {
+app.get("/advice/history", isAdminUser, isAuthenticated, async (req, res) => {
   try {
     const jwtToken = req.cookies.jwt;
     const decoded = jwt.verify(jwtToken, secretKey);
@@ -302,7 +301,7 @@ app.get("/advice/history", isAuthenticated, async (req, res) => {
   }
 });
 
-app.get("/quotes/history", isAuthenticated, async (req, res) => {
+app.get("/quotes/history", isAdminUser, isAuthenticated, async (req, res) => {
   try {
     const jwtToken = req.cookies.jwt;
     const decoded = jwt.verify(jwtToken, secretKey);
