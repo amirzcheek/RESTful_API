@@ -428,14 +428,14 @@ app.listen(PORT, () => {
 async function generateUserId() {
   try {
       const lastUser = await userModule.findOne().sort({ user_Id: -1 });
-      console.log("Last User:", lastUser); // Check the last user fetched from the database
+      console.log("Last User:", lastUser);
       let newUserId;
       if (lastUser) {
           newUserId = parseInt(lastUser.user_Id) + 1;
       } else {
           newUserId = 1;
       }
-      console.log("New User ID:", newUserId); // Print out the new user ID
+      console.log("New User ID:", newUserId);
       return newUserId;
   } catch (error) {
       console.error("Error generating user ID:", error);
