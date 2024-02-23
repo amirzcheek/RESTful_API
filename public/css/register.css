@@ -4,19 +4,58 @@ body {
     margin: 0;
     padding: 0;
 }
+nav {
+    background-color: #333;
+    padding: 10px 0;
+}
 
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ccc;
+}
+
+h2 {
+    color: #333;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 form {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 300px;
 }
 
 label {
     font-size: 1.2em;
     display: block;
     margin-bottom: 10px;
+    color: #333;
 }
 
 input {
@@ -40,7 +79,6 @@ button {
 button:hover {
     background-color: #414141;
 }
-
 .message {
     padding: 10px;
     margin-bottom: 10px;
@@ -48,4 +86,13 @@ button:hover {
     border: 1px solid #ccc;
     color: #333;
     border-radius: 5px;
+}
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

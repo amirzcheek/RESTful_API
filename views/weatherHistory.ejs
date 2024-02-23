@@ -4,201 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        nav {
-            background-color: #333;
-            padding: 10px 0;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            padding: 0;
-        }
-
-        nav ul li {
-            margin: 0 10px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #ccc;
-        }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .profile {
-            margin: 20px;
-            padding: 20px;
-        }
-
-        .api-history {
-            margin-bottom: 20px;
-        }
-
-        .buttons button {
-            margin-right: 10px;
-        }
-        .api-history {
-            margin-bottom: 20px;
-        }
-
-        .api-history ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .api-history li {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-
-        .api-history li p {
-            margin: 0;
-            font-size: 14px;
-        }
-
-        .api-history li p.timestamp {
-            font-weight: bold;
-            color: #555;
-        }
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .buttons form {
-            flex: 1;
-            margin-right: 10px; 
-        }
-
-        .buttons form button {
-            background-color: #333; 
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
-            width: 100%; 
-        }
-
-        .buttons form button:hover {
-            background-color: #414141;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        footer p{
-            color:#fff
-        }
-    </style>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/lang.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/weatherHistory.css">
 </head>
 <body>
-    <%- include('navbar') %>
+    <nav>
+        <ul>
+            <% if (lang === 'en') { %>
+            <li><a href="/">Main</a></li>
+            <li><a href="/weather">Weather API</a></li>
+            <li><a href="/advice">Advice API</a></li>
+            <li><a href="/quotes">Quotes API</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Profile</a>
+                <div class="dropdown-content">
+                    <% if (typeof isAdminUser !== 'undefined' && isAdminUser) { %>
+                        <a href="/admin">Admin Page</a>
+                    <% } %>
+                    <a href="/profile">My Profile</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </li>
+            <% } else if (lang === 'ru') { %>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/weather">Погода API</a></li>
+                <li><a href="/advice">Советы API</a></li>
+                <li><a href="/quotes">Цитаты API</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Профиль</a>
+                    <div class="dropdown-content">
+                        <% if (typeof isAdminUser !== 'undefined' && isAdminUser) { %>
+                            <a href="/admin">Админ панель</a>
+                        <% } %>
+                        <a href="/profile">Мой профиль</a>
+                        <a href="/logout">Выйти</a>
+                    </div>
+                </li>
+            <% } %>
+            <div id="language-selection">
+                <a href="/setLanguage?lang=en">En <img src="../images/enLang.png"></a>
+                <a href="/setLanguage?lang=ru">Ru <img src="../images/ruLang.png"></a>
+            </div>
+        </ul>
+    </nav>
+    
     <div class="container">
-        <div class="profile">
-            <h1><%= username %> Profile</h1>
-            <div class="api-history">
-                <h2>API History</h2>
+        <% if (lang === 'en') { %>
+            <div class="profile">
+                <h1><%= username %> Profile</h1>
+                <div class="api-history">
+                    <h2>API History</h2>
+                </div>
+                <div class="buttons">
+                    <form action="/weather/history" method="get">
+                        <button type="submit" name="requestType" value="weather">View Weather History</button>
+                    </form>
+                    
+                    <form action="/advice/history" method="get">
+                        <button type="submit" name="requestType" value="advice">View Advice History</button>
+                    </form>
+                    
+                    <form action="/quotes/history" method="get">
+                        <button type="submit" name="requestType" value="quotes">View Quotes History</button>
+                    </form>
+                </div>
             </div>
-            <div class="buttons">
-                <form action="/weather/history" method="get">
-                    <button type="submit" name="requestType" value="weather">View Weather History</button>
-                </form>
-                
-                <form action="/advice/history" method="get">
-                    <button type="submit" name="requestType" value="advice">View Advice History</button>
-                </form>
-                
-                <form action="/quotes/history" method="get">
-                    <button type="submit" name="requestType" value="quotes">View Quotes History</button>
-                </form>
+        <% } else if (lang === 'ru') { %>
+            <div class="profile">
+                <h1><%= username %> Профиль</h1>
+                <div class="api-history">
+                    <h2>История Запросов API</h2>
+                </div>
+                <div class="buttons">
+                    <form action="/weather/history" method="get">
+                        <button type="submit" name="requestType" value="weather">Смотреть Историю Погоды</button>
+                    </form>
+                    
+                    <form action="/advice/history" method="get">
+                        <button type="submit" name="requestType" value="advice">Смотреть Историю Советов</button>
+                    </form>
+                    
+                    <form action="/quotes/history" method="get">
+                        <button type="submit" name="requestType" value="quotes">Смотреть Историю Цитат</button>
+                    </form>
+                </div>
             </div>
-        </div>
+        <% } %>
         <div class="api-history">
-            <h2>Weather API History</h2>
-            <% if (weatherHistory.length === 0) { %>
-                <p>None</p>
-            <% } else { %>
-                <ul>
-                    <% weatherHistory.forEach(entry => { %>
-                        <li>
-                            <p>City: <%= entry.city %></p>
-                            <p>Temperature: <%= entry.temperature %></p>
-                            <p>Description: <%= entry.description %></p>
-                            <p>Date: <%= formatDate(entry.createdAt) %></p>
-                        </li>
-                    <% }); %>
-                </ul>
+            <% if (lang === 'en') { %>
+                <h2>Weather API History</h2>
+                <% if (weatherHistory.length === 0) { %>
+                    <p>None</p>
+                <% } else { %>
+                    <ul>
+                        <% weatherHistory.forEach(entry => { %>
+                            <li>
+                                <p>City: <%= entry.city %></p>
+                                <p>Temperature: <%= entry.temperature %></p>
+                                <p>Description: <%= entry.description %></p>
+                                <p>Date: <%= formatDate(entry.createdAt) %></p>
+                            </li>
+                        <% }); %>
+                    </ul>
+                <% } %>
+            <% } else if (lang === 'ru') { %>
+                <h2>История Погоды API</h2>
+                <% if (weatherHistory.length === 0) { %>
+                    <p>None</p>
+                <% } else { %>
+                    <ul>
+                        <% weatherHistory.forEach(entry => { %>
+                            <li>
+                                <p>Город: <%= entry.city %></p>
+                                <p>Температура: <%= entry.temperature %></p>
+                                <p>Описание: <%= entry.description %></p>
+                                <p>Дата: <%= entry.createdAt %></p>
+                            </li>
+                        <% }); %>
+                    </ul>
+                <% } %>
             <% } %>
         </div>
     </div>

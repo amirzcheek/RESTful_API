@@ -1,18 +1,5 @@
 const mongoose = require('mongoose');
 
-const uri = "mongodb+srv://myAtlasDBUser:1@myatlasclusteredu.pjc0lgr.mongodb.net/weatherApi?retryWrites=true&w=majority";
-
-const connect = mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-connect.then(() => {
-})
-.catch((err) => {
-    console.error("Error connecting to MongoDB Atlas:", err);
-  });
-  
 const LoginSchema = new mongoose.Schema({
     user_Id: {
         type: Number,

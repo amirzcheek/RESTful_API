@@ -1,5 +1,6 @@
 <nav>
     <ul>
+        <% if (lang === 'en') { %>
         <li><a href="/">Main</a></li>
         <li><a href="/weather">Weather API</a></li>
         <li><a href="/advice">Advice API</a></li>
@@ -14,5 +15,25 @@
                 <a href="/logout">Logout</a>
             </div>
         </li>
+        <% } else if (lang === 'ru') { %>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/weather">Погода API</a></li>
+            <li><a href="/advice">Советы API</a></li>
+            <li><a href="/quotes">Цитаты API</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Профиль</a>
+                <div class="dropdown-content">
+                    <% if (typeof isAdminUser !== 'undefined' && isAdminUser) { %>
+                        <a href="/admin">Админ панель</a>
+                    <% } %>
+                    <a href="/profile">Мой профиль</a>
+                    <a href="/logout">Выйти</a>
+                </div>
+            </li>
+        <% } %>
+        <div id="language-selection">
+            <a href="/setLanguage?lang=en">En <img src="/images/enLang.png"></a>
+            <a href="/setLanguage?lang=ru">Ru <img src="/images/ruLang.png"></a>
+        </div>
     </ul>
 </nav>

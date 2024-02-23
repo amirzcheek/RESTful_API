@@ -39,7 +39,18 @@ button {
 button:hover {
     background-color: #414141;
 }
+.quote {
+    margin-top: 30px;
+}
 
+.author {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
 
-
-
+.quote-text {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+}

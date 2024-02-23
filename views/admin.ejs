@@ -4,200 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        nav {
-            background-color: #333;
-            padding: 10px 0;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            padding: 0;
-        }
-
-        nav ul li {
-            margin: 0 10px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #ccc;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        h2 {
-            color: #666;
-        }
-
-        .user-management {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            background-color: #333;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background-color: #414141;
-        }
-        .message {
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #f2f2f2;
-            border: 1px solid #ccc;
-            color: #333;
-            border-radius: 5px;
-        }
-        .user-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .user-list li {
-            background-color: #f9f9f9;
-            padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .user-list li p {
-            margin: 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .buttons form {
-            flex: 1; 
-            margin-right: 10px; 
-        }
-
-        .buttons form button {
-            background-color: #333; 
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
-            width: 100%; 
-        }
-
-        .buttons form button:hover {
-            background-color: #414141;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/lang.css">
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
     <%- include('navbar') %>
@@ -237,6 +48,7 @@
         <% } else { %>
             <div class="message">No users found.</div>
         <% } %>
+
         <div class="user-management">
             <h2>Add New User</h2>
             <% if (typeof message !== 'undefined' && message) { %>
@@ -311,6 +123,107 @@
                 </form>
             </div>
         </div>
+
+        <br><br>
+        <div class="items-list">
+            <h2>All Items</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Name (EN)</th>
+                        <th>Name (RU)</th>
+                        <th>Description (EN)</th>
+                        <th>Description (RU)</th>
+                        <th>Pictures URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% items.forEach(item => { %>
+                        <tr>
+                            <td><%= item.item_Id %></td>
+                            <td><%= item.names.nameEN %></td>
+                            <td><%= item.names.nameRU %></td>
+                            <td><%= item.descriptions.descriptionEN %></td>
+                            <td><%= item.descriptions.descriptionRU %></td>
+                            <td>
+                                <%= (item.pictures.picture1 || 'N/A') %> <br> <br>
+                                <%= (item.pictures.picture2 || 'N/A') %> <br> <br>
+                                <%= item.pictures.picture3 || 'N/A' %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+        
+
+        <!-- Add New Item Form -->
+        <div class="item-management">
+            <h2>Add New Item</h2>
+            <% if (typeof messageItem !== 'undefined' && messageItem) { %>
+                <div class="message"><%= messageItem %></div>
+            <% } %>
+            <form action="/admin/addItem" method="post">
+                <label for="nameEN">Name (EN):</label>
+                <input type="text" id="nameEN" name="nameEN" required>
+                <label for="nameRU">Name (RU):</label>
+                <input type="text" id="nameRU" name="nameRU" required>
+                <label for="descriptionEN">Description (EN):</label>
+                <textarea id="descriptionEN" name="descriptionEN" required></textarea>
+                <label for="descriptionRU">Description (RU):</label>
+                <textarea id="descriptionRU" name="descriptionRU" required></textarea>
+                <label for="picture1">Picture 1 URL:</label>
+                <input type="text" id="picture1" name="picture1" required>
+                <label for="picture2">Picture 2 URL:</label>
+                <input type="text" id="picture2" name="picture2" required>
+                <label for="picture3">Picture 3 URL:</label>
+                <input type="text" id="picture3" name="picture3" required>
+                <button type="submit">Add Item</button>
+            </form>
+        </div>
+        
+        <div class="item-management">
+            <h2>Edit Item</h2>
+            <% if (typeof messageEditItem !== 'undefined' && messageEditItem) { %>
+                <div class="message"><%= messageEditItem %></div>
+            <% } %>
+            <form action="/admin/editItem" method="post">
+                <label for="editItemId">Item ID:</label>
+                <input type="text" id="editItemId" name="editItemId" required>
+                <label for="editItemNameEN">English Name:</label>
+                <input type="text" id="editItemNameEN" name="editItemNameEN">
+                <label for="editItemNameRU">Russian Name:</label>
+                <input type="text" id="editItemNameRU" name="editItemNameRU">
+                <label for="editItemDescEN">English Description:</label>
+                <input type="text" id="editItemDescEN" name="editItemDescEN">
+                <label for="editItemDescRU">Russian Description:</label>
+                <input type="text" id="editItemDescRU" name="editItemDescRU">
+                <label for="editPicture">Picture URL:</label>
+                <select id="editPictureSelect" name="editPictureSelect">
+                    <option value="editPicture1">Picture 1</option>
+                    <option value="editPicture2">Picture 2</option>
+                    <option value="editPicture3">Picture 3</option>
+                </select>
+                <input type="text" id="editPicture" name="editPicture">
+                <button type="submit">Edit Item</button>
+            </form>
+        </div>
+              
+        
+        
+        <div class="item-management">
+            <h2>Delete Item</h2>
+            <% if (typeof messageDeleteItem !== 'undefined' && messageDeleteItem) { %>
+                <div class="message"><%= messageDeleteItem %></div>
+            <% } %>
+            <form action="/admin/deleteItem" method="post">
+                <label for="deleteItemId">Item ID:</label>
+                <input type="text" id="deleteItemId" name="deleteItemId" required>
+                <button type="submit">Delete Item</button>
+            </form>
+        </div>
+        
     </div>
     <%- include('footer') %>
 </body>

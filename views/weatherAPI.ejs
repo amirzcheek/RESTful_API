@@ -4,152 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather</title>
+    <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/weatherAPI.css">
-    <script src="js/main.js" defer></script>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/lang.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+        #map {
+            height: 400px;
+            padding-bottom: 100px;
+            margin-bottom: 65px
         }
-
-        nav {
-            background-color: #333;
-            padding: 10px 0;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            padding: 0;
-        }
-
-        nav ul li {
-            margin: 0 10px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #ccc;
-        }
-
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        label {
-            font-size: 1.2em;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-            font-size: 1em;
-        }
-
-        button {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        button:hover {
-            background-color: #414141;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .message {
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #f2f2f2;
-            border: 1px solid #ccc;
-            color: #333;
-            border-radius: 5px;
-        }
-    </style>
+    </style>    
 </head>
 <body>
     <%- include('navbar') %>
 
     <form id="mapForm" action="/weather" method="post">
-        <% if (message) { %>
-            <div class="message"><%= message %></div>
+        <% if (lang === 'en') { %>
+            <% if (typeof message !== 'undefined' && message) { %>
+                <div class="message"><%= message %></div>
+            <% } %>
+            <label for="cityMap"><b>Enter City:</b></label>
+            <input type="text" id="cityMap" name="city" placeholder="E.g., Astana" required>
+            <button type="submit">Get</button>
+        <% } else if (lang === 'ru') { %>
+            <% if (typeof message !== 'undefined' && message) { %>
+                <div class="message"><%= message %></div>
+            <% } %>
+            <label for="cityMap"><b>Введите город:</b></label>
+            <input type="text" id="cityMap" name="city" placeholder="Например, Астана" required>
+            <button type="submit">Узнать</button>
         <% } %>
-        <label for="cityMap"><b>Enter City:</b></label>
-        <input type="text" id="cityMap" name="city" placeholder="E.g., Astana" required>
-        <button type="submit">Get</button>
     </form>
+    <% if (typeof city !== 'undefined' && city){ %>
+        <% if (lang === 'en') { %>
+            <h1>Weather for <%= city %></h1>
+            <h2>Temperature: <%= temperature %>°C</h2>
+            <h2>feels like -> <%= feelsLikeTemp %></h2> 
+            <h2>The weather is currently <%= description %></h2>
+            <img src="<%= imageURL %>" alt="Weather Icon">
+            <br>Humidity is <%=humidity%>
+            <br>Pressure is <%=pressure%>
+            <br>Wind speed is <%=windSpeed%>
+            <br>Country code is <%=countryCode%></h2>
+            <h1>Map for <%= city %></h1>
+            <h2>Coordinates:</h2>
+            <ul>
+                <li>Latitude: <%= lat %></li>
+                <li>Longitude: <%= lon %></li>
+            </ul>
+        <% } else if (lang === 'ru') { %>
+            <h1>Погода для <%= city %></h1>
+            <h2>Температура: <%= temperature %>°C</h2>
+            <h2>Ощущается как -> <%= feelsLikeTemp %></h2> 
+            <h2>Погода сейчас <%= description %></h2>
+            <img src="<%= imageURL %>" alt="Weather Icon">
+            <br>Влажность <%=humidity%>
+            <br>Давление <%=pressure%>
+            <br>Скорость ветра <%=windSpeed%>
+            <br>Код страны <%=countryCode%></h2>
+            <h1>Карта для <%= city %></h1>
+            <h2>Координаты:</h2>
+            <ul>
+                <li>Широта: <%= lat %></li>
+                <li>Долгота: <%= lon %></li>
+            </ul>
+        <% } %>
+
+        <div id="map"></div>
+    <% } %>
+
+
     <%- include('footer') %>
-    
+    <% if (typeof lat !== 'undefined' && lat){ %>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#weatherForm').submit(function (event) {
-                event.preventDefault();
-    
-                const city = $('#city').val();
-    
-                $.post('/weather', { city: city }, function (data) {
-                    $('#weatherDetails').html(data).show();
-                });
-            });
-        });
+        var map = L.map('map').setView([<%= lat %>, <%= lon %>], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        L.marker([<%= lat %>, <%= lon %>]).addTo(map)
+            .bindPopup('<b><%= city %></b><br>Temperature: <%= temperature %>°C<br><%= description %><br><img src="<%= imageURL %>" width="50" height="50">')
+            .openPopup();
     </script>
+    <% } %>
     <script>
         window.onclick = function(event) {
             if (!event.target.matches('.dropbtn')) {

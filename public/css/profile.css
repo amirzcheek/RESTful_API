@@ -1,0 +1,50 @@
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+}
+
+.profile {
+    margin: 20px;
+    padding: 20px;
+}
+
+.api-history {
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between; 
+}
+
+.buttons form {
+    flex: 1; 
+    margin-right: 10px; 
+}
+
+.buttons form button {
+    background-color: #333; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.buttons form button:hover {
+    background-color: #414141;
+}

@@ -4,157 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        nav {
-            background-color: #333;
-            padding: 10px 0;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            padding: 0;
-        }
-
-        nav ul li {
-            margin: 0 10px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #ccc;
-        }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .profile {
-            margin: 20px;
-            padding: 20px;
-        }
-
-        .api-history {
-            margin-bottom: 20px;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: space-between; 
-        }
-
-        .buttons form {
-            flex: 1; 
-            margin-right: 10px; 
-        }
-
-        .buttons form button {
-            background-color: #333; 
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 4px;
-            width: 100%;
-        }
-
-        .buttons form button:hover {
-            background-color: #414141;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        footer p{
-            color: #fff;
-        }
-    </style>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/lang.css">
+    <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
     <%- include('navbar') %>
+
     <div class="container">
-        <div class="profile">
-            <h1><%= username %> Profile</h1>
-            <div class="api-history">
-                <h2>API History</h2>
+        <% if (lang === 'en') { %>
+            <div class="profile">
+                <h1><%= username %> Profile</h1>
+                <div class="api-history">
+                    <h2>API History</h2>
+                </div>
+                <div class="buttons">
+                    <form action="/weather/history" method="get">
+                        <button type="submit" name="requestType" value="weather">View Weather History</button>
+                    </form>
+                    
+                    <form action="/advice/history" method="get">
+                        <button type="submit" name="requestType" value="advice">View Advice History</button>
+                    </form>
+                    
+                    <form action="/quotes/history" method="get">
+                        <button type="submit" name="requestType" value="quotes">View Quotes History</button>
+                    </form>
+                </div>
             </div>
-            <div class="buttons">
-                <form action="/weather/history" method="get">
-                    <button type="submit" name="requestType" value="weather">View Weather History</button>
-                </form>
-                
-                <form action="/advice/history" method="get">
-                    <button type="submit" name="requestType" value="advice">View Advice History</button>
-                </form>
-                
-                <form action="/quotes/history" method="get">
-                    <button type="submit" name="requestType" value="quotes">View Quotes History</button>
-                </form>
+        <% } else if (lang === 'ru') { %>
+            <div class="profile">
+                <h1><%= username %> Профиль</h1>
+                <div class="api-history">
+                    <h2>История Запросов API</h2>
+                </div>
+                <div class="buttons">
+                    <form action="/weather/history" method="get">
+                        <button type="submit" name="requestType" value="weather">Смотреть Историю Погоды</button>
+                    </form>
+                    
+                    <form action="/advice/history" method="get">
+                        <button type="submit" name="requestType" value="advice">Смотреть Историю Советов</button>
+                    </form>
+                    
+                    <form action="/quotes/history" method="get">
+                        <button type="submit" name="requestType" value="quotes">Смотреть Историю Цитат</button>
+                    </form>
+                </div>
             </div>
-        </div>
+        <% } %>
     </div>
     <%- include('footer') %>
     <script>

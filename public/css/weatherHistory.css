@@ -1,0 +1,61 @@
+.api-history {
+    margin-bottom: 20px;
+}
+
+.buttons button {
+    margin-right: 10px;
+}
+.api-history {
+    margin-bottom: 20px;
+}
+
+.api-history ul {
+    list-style: none;
+    padding: 0;
+}
+
+.api-history li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.api-history li p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.api-history li p.timestamp {
+    font-weight: bold;
+    color: #555;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons form {
+    flex: 1;
+    margin-right: 10px; 
+}
+
+.buttons form button {
+    background-color: #333; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%; 
+}
+
+.buttons form button:hover {
+    background-color: #414141;
+}
