@@ -45,6 +45,8 @@ admin page gives you access to add, edit, and delete blocks of items which repre
 
 also multi-languages are available on every page except the Admin page
 
+
+
 **additional add/edit check:**
 
 nameEN: Turn Ideas Into Reality 
