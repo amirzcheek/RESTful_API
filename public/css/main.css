@@ -70,3 +70,7 @@ dl, ol, ul {
 nav ul li a {
     text-decoration: none;
 }
+footer p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
