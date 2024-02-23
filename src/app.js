@@ -445,7 +445,8 @@ app.post('/admin/addUser', isAuthenticated, isAdmin,isAdminUser, async (req, res
     const userData = await userModule.insertMany(newUser);
     console.log("admin created user: " + userData);
     const users = await userModule.find({})
-    res.render('admin', { message: 'User created successfully.', formatDate, users });
+    const items = await Item.find({});
+    res.render('admin', { message: 'User created successfully.', formatDate, users, items });
   } catch (error) {
     console.error('Error adding user:', error);
     res.status(500).send("Internal server error");
@@ -468,8 +469,9 @@ app.post('/admin/editUser', isAuthenticated, isAdmin,isAdminUser, async (req, re
         user.updateDate = new Date();
 
         await user.save();
-        const users = await userModule.find({})
-        res.render('admin', { messageEdit: 'User updated successfully.', formatDate, users });
+      const users = await userModule.find({})
+      const items = await Item.find({});
+        res.render('admin', { messageEdit: 'User updated successfully.', formatDate, users, items });
     } catch (error) {
         console.error("Error updating user:", error);
         res.status(500).send("Internal server error.");
@@ -488,8 +490,9 @@ app.post('/admin/deleteUser', isAuthenticated, isAdmin,isAdminUser,async (req, r
 
         await userModule.deleteOne({ name: deleteUsername });
 
-        const users = await userModule.find({});
-        res.render('admin', { messageDelete: 'User deleted successfully.', formatDate, users });
+      const users = await userModule.find({});
+      const items = await Item.find({});
+        res.render('admin', { messageDelete: 'User deleted successfully.', formatDate, users, items });
     } catch (error) {
         console.error("Error deleting user:", error);
         res.status(500).send("Internal server error.");
