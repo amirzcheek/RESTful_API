@@ -46,12 +46,14 @@ admin page gives you access to add, edit, and delete blocks of items which repre
 also multi-languages are available on every page except the Admin page
 
 **additional add/edit check:**
+
 nameEN: Turn Ideas Into Reality 
 nameRU: Преврати Идеи в Реальность 
 descriptionEN: Just start, everything will go on! 
 descriptionRu: Просто начни, остальное само придёт!
 
 pictures urls: 
+
 "https://img.freepik.com/free-photo/collage-inspiration-motivational-image_23-2150569814.jpg 
  
 https://www.univariety.com/blog/wp-content/uploads/2014/08/motivational-goals.jpg 
